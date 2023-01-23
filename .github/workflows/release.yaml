@@ -3,8 +3,6 @@ name: Release
 
 on:
   push:
-    tags:
-      - v*
   workflow_dispatch: {}
 
 
@@ -13,6 +11,8 @@ jobs:
     name: Build and push container
     runs-on: ubuntu-latest
     steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
       - name: Login
         uses: docker/login-action@v1
         with:
@@ -25,7 +25,8 @@ jobs:
         with:
           file: cli.Dockerfile
           push: true
-          tags: quay.io/projectquay/clair-action:${{ github.ref_name }}
+          platforms: linux/amd64,linux/ppc64le
+          tags: quay.io/mayurwaghmode111/clair-action:${{ github.ref_name }}
       - name: Checkout
         uses: actions/checkout@v3
         with:
