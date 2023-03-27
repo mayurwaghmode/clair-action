@@ -2,9 +2,6 @@ name: db_update
 
 on:
   workflow_dispatch: {}
-  # Run every day at 5AM UTC
-  schedule:
-    - cron: '0 5 * * *'
 
 jobs:
   docker:
